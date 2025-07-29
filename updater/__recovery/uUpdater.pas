@@ -8,7 +8,7 @@ uses
 
 const
   LOCAL_VERSION_FILE = 'version.json';
-  REMOTE_VERSION_URL = 'https://tuservidor.com/updates/version.json';
+  REMOTE_VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevopsOpcion2/updates/version.json';
   REMOTE_INSTALLER_URL = 'https://tuservidor.com/updates/Tateti_Setup.exe';
   LOCAL_INSTALLER_FILE = 'Tateti_Setup.exe';
   MAIN_APP_NAME = 'Tateti.exe';
