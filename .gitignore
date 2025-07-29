@@ -1,0 +1,8 @@
+#bin/
+__history/
+*.~*
+*.dcu
+*.local
+*.identcache
+#*.exe
+*.dll
