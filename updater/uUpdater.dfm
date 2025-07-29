@@ -1,7 +1,7 @@
-object Form1: TForm1
+object frmUpdater: TfrmUpdater
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'frmUpdater'
   ClientHeight = 442
   ClientWidth = 628
   Color = clBtnFace
@@ -10,5 +10,6 @@ object Form1: TForm1
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnCreate = FormCreate
   TextHeight = 15
 end
