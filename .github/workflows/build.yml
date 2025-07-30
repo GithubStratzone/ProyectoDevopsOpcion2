@@ -1,0 +1,47 @@
+name: Build and Deploy Installer
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Clonar el repositorio
+      uses: actions/checkout@v3
+
+    - name: Crear carpeta bin si no existe
+      run: |
+        if (!(Test-Path bin)) {
+          mkdir bin
+        }
+        
+    - name: Instalar Inno Setup
+      run: |
+        Invoke-WebRequest -Uri "https://jrsoftware.org/download.php/is.exe" -OutFile is.exe
+        Start-Process .\is.exe -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-" -Wait
+
+    - name: Compilar instalador con Inno Setup
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "install\Tateti.iss"
+
+    - name: Copiar instalador y version.json a updates
+      run: |
+        if (!(Test-Path updates)) {
+          mkdir updates
+        }
+        copy bin\Tateti_Setup.exe updates\
+        copy version.json updates\
+
+    - name: Commit y push a updates
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add updates/
+        git commit -m "Actualizo instalador y version.json"
+        git push
