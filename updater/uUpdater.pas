@@ -3,26 +3,20 @@ unit uUpdater;
 interface
 
 uses
-  Winapi.Windows,Winapi.ShellAPI, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows,Winapi.ShellAPI, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.IOUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.Net.HttpClient, System.Net.URLClient, System.Net.HttpClientComponent, System.JSON, TlHelp32;
 
 const
-  LOCAL_VERSION_FILE = 'version.json';
   REMOTE_VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevopsOpcion2/updates/version.json';
-  REMOTE_INSTALLER_URL = 'https://githubstratzone.github.io/ProyectoDevopsOpcion2/updates/Tateti_Setup.exe';
-  LOCAL_INSTALLER_FILE = 'Tateti_Setup.exe';
   MAIN_APP_NAME = 'Tateti.exe';
+  LOCAL_EXE = 'Tateti.exe';
+  LOCAL_VERSION = '1.0.0'; // hardcoded local versión
+  VERSION_URL = 'https://githubstratzone.github.io/ProyectoDevopsOpcion2/updates/version.json';
 
 type
   TfrmUpdater = class(TForm)
     procedure FormCreate(Sender: TObject);
   private
-    procedure CheckForUpdates;
-    function GetLocalVersion: string;
-    function GetRemoteVersion: string;
-    procedure CloseRunningApp(const ExeName: string);
-    procedure DownloadInstaller;
-    procedure RunInstallerSilently;
     { Private declarations }
   public
     { Public declarations }
@@ -31,76 +25,19 @@ type
 var
   frmUpdater: TfrmUpdater;
 
+procedure CloseRunningApp(const ExeName: string);
+procedure CheckAndUpdate;
+
 implementation
 
 {$R *.dfm}
 
 procedure TfrmUpdater.FormCreate(Sender: TObject);
 begin
-  CheckForUpdates;
+  CheckAndUpdate;
 end;
 
-procedure TfrmUpdater.CheckForUpdates;
-var
-  localVer, remoteVer: string;
-begin
-  try
-    localVer := GetLocalVersion;
-    remoteVer := GetRemoteVersion;
-
-    if localVer <> remoteVer then
-    begin
-      CloseRunningApp(MAIN_APP_NAME);
-      DownloadInstaller;
-      RunInstallerSilently;
-      Application.Terminate;
-    end;
-  except
-    on E: Exception do
-      ShowMessage('Error durante la actualización: ' + E.Message);
-  end;
-end;
-
-function TfrmUpdater.GetLocalVersion: string;
-var
-  sl: TStringList;
-  json: TJSONObject;
-begin
-  if not FileExists(LOCAL_VERSION_FILE) then Exit('');
-
-  sl := TStringList.Create;
-  try
-    sl.LoadFromFile(LOCAL_VERSION_FILE);
-    json := TJSONObject.ParseJSONValue(sl.Text) as TJSONObject;
-    if Assigned(json) then
-      Result := json.GetValue<string>('version')
-    else
-      Result := '';
-  finally
-    sl.Free;
-  end;
-end;
-
-function TfrmUpdater.GetRemoteVersion: string;
-var
-  http: TNetHTTPClient;
-  response: string;
-  json: TJSONObject;
-begin
-  http := TNetHTTPClient.Create(nil);
-  try
-    response := http.Get(REMOTE_VERSION_URL).ContentAsString(TEncoding.UTF8);
-    json := TJSONObject.ParseJSONValue(response) as TJSONObject;
-    if Assigned(json) then
-      Result := json.GetValue<string>('version')
-    else
-      Result := '';
-  finally
-    http.Free;
-  end;
-end;
-
-procedure TfrmUpdater.CloseRunningApp(const ExeName: string);
+procedure CloseRunningApp(const ExeName: string);
 var
   SnapShot: THandle;
   ProcEntry: TProcessEntry32;
@@ -122,29 +59,65 @@ begin
   CloseHandle(SnapShot);
 end;
 
-procedure TfrmUpdater.DownloadInstaller;
+procedure DownloadFile(const URL, DestFile: string);
 var
   http: TNetHTTPClient;
-  response: IHTTPResponse;
-  fileStream: TFileStream;
+  fs: TFileStream;
 begin
   http := TNetHTTPClient.Create(nil);
   try
-    fileStream := TFileStream.Create(LOCAL_INSTALLER_FILE, fmCreate);
+    fs := TFileStream.Create(DestFile, fmCreate);
     try
-      response := http.Get(REMOTE_INSTALLER_URL, fileStream);
+      http.Get(URL, fs);
     finally
-      fileStream.Free;
+      fs.Free;
     end;
   finally
     http.Free;
   end;
 end;
 
-procedure TfrmUpdater.RunInstallerSilently;
+procedure CheckAndUpdate;
+var
+  http: TNetHTTPClient;
+  response: string;
+  json: TJSONObject;
+  remoteVersion, fileName, downloadURL: string;
+  tmpFile: string;
 begin
-  ShellExecute(0, 'open', PChar(LOCAL_INSTALLER_FILE),
-    PChar('/verysilent /norestart'), nil, SW_SHOWNORMAL);
+  http := TNetHTTPClient.Create(nil);
+  try
+    response := http.Get(VERSION_URL).ContentAsString(TEncoding.UTF8);
+    json := TJSONObject.ParseJSONValue(response) as TJSONObject;
+
+    remoteVersion := json.GetValue<string>('version');
+    fileName := json.GetValue<string>('filename');
+    downloadURL := json.GetValue<string>('url');
+
+    if remoteVersion <> LOCAL_VERSION then
+    begin
+      ShowMessage('Nueva versión encontrada: ' + remoteVersion);
+
+      // 1. Descargar el nuevo exe
+      tmpFile := TPath.Combine(TPath.GetTempPath, fileName);
+      DownloadFile(downloadURL, tmpFile);
+
+      // 2. Cerrar app si está abierta
+      CloseRunningApp(LOCAL_EXE);
+      Sleep(1000); // Espera 1s para liberar el archivo
+
+      // 3. Reemplazar
+      DeleteFile(LOCAL_EXE);
+      RenameFile(tmpFile, LOCAL_EXE);
+
+      // 4. Relanzar
+      ShellExecute(0, 'open', PChar(LOCAL_EXE), nil, nil, SW_SHOWNORMAL);
+
+      Application.Terminate;
+    end;
+  finally
+    http.Free;
+  end;
 end;
 
 end.

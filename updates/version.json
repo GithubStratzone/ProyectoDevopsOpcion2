@@ -1,5 +1,7 @@
 {
   "version": "1.0.0",
-  "url": "https://tuservidor.com/updates/Calculadora_Setup.exe",
-  "changelog": "Calculadora inicial con suma y resta."
+  "filename": "Tateti_1.0.0.exe",
+  "url": "https://githubstratzone.github.io/ProyectoDevops/updates/Tateti_1.0.0.exe",
+  "changelog": "Fixes menores en interfaz"
 }
+

@@ -99,10 +99,8 @@ object frmTateti: TfrmTateti
         SizeStyle = ssAuto
       end>
     TabOrder = 0
-    ExplicitLeft = 200
-    ExplicitTop = 128
-    ExplicitWidth = 185
-    ExplicitHeight = 41
+    ExplicitWidth = 624
+    ExplicitHeight = 441
     DesignSize = (
       628
       442)
@@ -113,10 +111,7 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitWidth = 207
     end
     object btn01: TButton
       Left = 209
@@ -125,10 +120,8 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 1
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitLeft = 208
+      ExplicitWidth = 212
     end
     object btn02: TButton
       Left = 423
@@ -137,10 +130,8 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 2
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitLeft = 420
+      ExplicitWidth = 203
     end
     object btn10: TButton
       Left = 1
@@ -149,8 +140,8 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 3
-      ExplicitTop = 160
-      ExplicitHeight = 143
+      ExplicitWidth = 207
+      ExplicitHeight = 134
     end
     object btn11: TButton
       Left = 209
@@ -159,9 +150,9 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 4
-      ExplicitLeft = 203
-      ExplicitTop = 150
-      ExplicitHeight = 143
+      ExplicitLeft = 208
+      ExplicitWidth = 212
+      ExplicitHeight = 134
     end
     object btn12: TButton
       Left = 423
@@ -170,10 +161,9 @@ object frmTateti: TfrmTateti
       Height = 135
       Align = alClient
       TabOrder = 5
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitLeft = 420
+      ExplicitWidth = 203
+      ExplicitHeight = 134
     end
     object btn20: TButton
       Left = 1
@@ -182,9 +172,8 @@ object frmTateti: TfrmTateti
       Height = 145
       Align = alClient
       TabOrder = 6
-      ExplicitLeft = -5
-      ExplicitTop = 293
-      ExplicitHeight = 154
+      ExplicitTop = 270
+      ExplicitWidth = 207
     end
     object btn21: TButton
       Left = 209
@@ -193,10 +182,9 @@ object frmTateti: TfrmTateti
       Height = 145
       Align = alClient
       TabOrder = 7
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitLeft = 208
+      ExplicitTop = 270
+      ExplicitWidth = 212
     end
     object btn22: TButton
       Left = 423
@@ -205,10 +193,9 @@ object frmTateti: TfrmTateti
       Height = 145
       Align = alClient
       TabOrder = 8
-      ExplicitLeft = 75
-      ExplicitTop = 68
-      ExplicitWidth = 75
-      ExplicitHeight = 25
+      ExplicitLeft = 420
+      ExplicitTop = 270
+      ExplicitWidth = 203
     end
     object lblEstado: TLabel
       Left = 83
@@ -229,8 +216,8 @@ object frmTateti: TfrmTateti
       Caption = 'Reiniciar'
       TabOrder = 9
       OnClick = btnReiniciarClick
-      ExplicitLeft = 464
-      ExplicitTop = 424
+      ExplicitLeft = 276
+      ExplicitTop = 415
     end
   end
 end
