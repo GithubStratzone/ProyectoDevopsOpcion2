@@ -2,8 +2,8 @@ object frmTateti: TfrmTateti
   Left = 0
   Top = 0
   Caption = 'Ta-Te-Ti'
-  ClientHeight = 442
-  ClientWidth = 628
+  ClientHeight = 441
+  ClientWidth = 624
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,8 +15,8 @@ object frmTateti: TfrmTateti
   object GridTateti: TGridPanel
     Left = 0
     Top = 0
-    Width = 628
-    Height = 442
+    Width = 624
+    Height = 441
     Align = alClient
     Caption = 'GridTateti'
     ColumnCollection = <
@@ -99,107 +99,84 @@ object frmTateti: TfrmTateti
         SizeStyle = ssAuto
       end>
     TabOrder = 0
-    ExplicitWidth = 624
-    ExplicitHeight = 441
     DesignSize = (
-      628
-      442)
+      624
+      441)
     object btn00: TButton
       Left = 1
       Top = 1
-      Width = 208
+      Width = 207
       Height = 135
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 207
     end
     object btn01: TButton
-      Left = 209
+      Left = 208
       Top = 1
-      Width = 214
+      Width = 212
       Height = 135
       Align = alClient
       TabOrder = 1
-      ExplicitLeft = 208
-      ExplicitWidth = 212
     end
     object btn02: TButton
-      Left = 423
+      Left = 420
       Top = 1
-      Width = 204
+      Width = 203
       Height = 135
       Align = alClient
       TabOrder = 2
-      ExplicitLeft = 420
-      ExplicitWidth = 203
     end
     object btn10: TButton
       Left = 1
       Top = 136
-      Width = 208
-      Height = 135
+      Width = 207
+      Height = 134
       Align = alClient
       TabOrder = 3
-      ExplicitWidth = 207
-      ExplicitHeight = 134
     end
     object btn11: TButton
-      Left = 209
+      Left = 208
       Top = 136
-      Width = 214
-      Height = 135
+      Width = 212
+      Height = 134
       Align = alClient
       TabOrder = 4
-      ExplicitLeft = 208
-      ExplicitWidth = 212
-      ExplicitHeight = 134
     end
     object btn12: TButton
-      Left = 423
+      Left = 420
       Top = 136
-      Width = 204
-      Height = 135
+      Width = 203
+      Height = 134
       Align = alClient
       TabOrder = 5
-      ExplicitLeft = 420
-      ExplicitWidth = 203
-      ExplicitHeight = 134
     end
     object btn20: TButton
       Left = 1
-      Top = 271
-      Width = 208
+      Top = 270
+      Width = 207
       Height = 145
       Align = alClient
       TabOrder = 6
-      ExplicitTop = 270
-      ExplicitWidth = 207
     end
     object btn21: TButton
-      Left = 209
-      Top = 271
-      Width = 214
+      Left = 208
+      Top = 270
+      Width = 212
       Height = 145
       Align = alClient
       TabOrder = 7
-      ExplicitLeft = 208
-      ExplicitTop = 270
-      ExplicitWidth = 212
     end
     object btn22: TButton
-      Left = 423
-      Top = 271
-      Width = 204
+      Left = 420
+      Top = 270
+      Width = 203
       Height = 145
       Align = alClient
       TabOrder = 8
-      ExplicitLeft = 420
-      ExplicitTop = 270
-      ExplicitWidth = 203
     end
     object lblEstado: TLabel
-      Left = 83
-      Top = 421
+      Left = 82
+      Top = 420
       Width = 44
       Height = 15
       Anchors = []
@@ -208,16 +185,14 @@ object frmTateti: TfrmTateti
       ExplicitTop = 426
     end
     object btnReiniciar: TButton
-      Left = 278
-      Top = 416
+      Left = 276
+      Top = 415
       Width = 75
       Height = 25
       Anchors = []
-      Caption = 'Reiniciar'
+      Caption = 'Reiniciar Juego'
       TabOrder = 9
       OnClick = btnReiniciarClick
-      ExplicitLeft = 276
-      ExplicitTop = 415
     end
   end
 end
